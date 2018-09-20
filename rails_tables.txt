@@ -1,0 +1,15 @@
+rails generate scaffold campaigns name:string description:string start_date:datetime budget:float creator_id integer
+rails generate scaffold users status:string usertype:string username:string truename:string password:string province_id:integer city_id:integer distirct_id:integer address:string user_comment:string
+rails generate scaffold services service_name:string service_description:string service_price:float creator_id:integer 
+rails generate scaffold metrics name:string
+rails generate scaffold creator_metrics creator_id:integer metric_id:string metric_name:string metric_value:string
+rails generate scaffold creator_ext userid:integer tags_set:string avatar:string category_id:integer
+rails generate scaffold categories name:string parent:integer
+rails generate scaffold social_accounts creator_id:integer phone:string mobile:string qq:string wechat:string email:string skype:string google:string yahoo:string
+rails generate scaffold flows flow_type:string flow_name:string flow_order:integer
+rails generate scaffold posts post_author:integer post_date:string post_title:string post_content:string post_status:string post_modified:datetime post_type:string
+rails generate scaffold contracts creator_id:integer marketer_id:integer campaigns_id:integer contract_price:float down_payment_date:datetime down_payment:float rest_payment_date:datetime rest_payment:float contract_image:string comment:string
+rails generate scaffold comments post_id:integer comment_content:string user_id:integer
+rails generate scaffold areas areaName:string area_level:integer area_sequence:integer parent_id:integer
+rails generate scaffold schedules campaign_id:integer flow_name:integer flow_order:integer starts_on:datetime ends_on:datetime workdays:integer status:integer post_id:integer
+rails generate scaffold tags tag_type:integer tag_name:string
