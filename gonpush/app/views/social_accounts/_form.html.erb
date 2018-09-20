@@ -1,0 +1,62 @@
+<%= form_with(model: social_account, local: true) do |form| %>
+  <% if social_account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(social_account.errors.count, "error") %> prohibited this social_account from being saved:</h2>
+
+      <ul>
+      <% social_account.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :creator_id %>
+    <%= form.number_field :creator_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :phone %>
+    <%= form.text_field :phone %>
+  </div>
+
+  <div class="field">
+    <%= form.label :mobile %>
+    <%= form.text_field :mobile %>
+  </div>
+
+  <div class="field">
+    <%= form.label :qq %>
+    <%= form.text_field :qq %>
+  </div>
+
+  <div class="field">
+    <%= form.label :wechat %>
+    <%= form.text_field :wechat %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :skype %>
+    <%= form.text_field :skype %>
+  </div>
+
+  <div class="field">
+    <%= form.label :google %>
+    <%= form.text_field :google %>
+  </div>
+
+  <div class="field">
+    <%= form.label :yahoo %>
+    <%= form.text_field :yahoo %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

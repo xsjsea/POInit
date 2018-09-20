@@ -1,0 +1,95 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Campaigns</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Start</th>
+      <th>Budget</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @campaigns.each do |campaign| %>
+      <tr>
+        <td><%= campaign.name %></td>
+        <td><%= campaign.description %></td>
+        <td><%= campaign.start %></td>
+        <td><%= campaign.budget %></td>
+        <td><%= link_to 'Show', campaign %></td>
+        <td><%= link_to 'Edit', edit_campaign_path(campaign) %></td>
+        <td><%= link_to 'Destroy', campaign, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Campaign', new_campaign_path %>
+
+<div id="page-wrapper" class="gray-bg">
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-lg-12">
+          <div class="ibox float-e-margins">
+              <div class="ibox-title">
+                <h5>填写需求</h5>
+              </div>
+              <div class="ibox-content">
+                <form method="get" class="form-horizontal">
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">项目名称</label>
+                    <div class="col-sm-10">
+                      <input type="text" placeholder="10个字以内" class="form-control">
+                      <span class="help-block m-b-none small">
+                      如：西门子自清洁油烟机、唯品会319活动节、天猫双十一活动...
+                      </span>
+                    </div>
+                  </div>
+                  <div class="hr-line-dashed"></div>
+                  <div class="form-group"><label class="col-sm-2 control-label">关键信息</label>
+                    <div class="col-sm-10">
+                      <input type="text" placeholder="20个字以内" class="form-control">
+                      <span class="help-block m-b-none small">
+                      如：“一件8折，两件7折”、“四大定律......” 、企业/活动口号、“VR看房”
+                      </span>
+                    </div>
+                  </div>
+                  <div class="hr-line-dashed"></div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">投放日期</label>
+                    <div class="col-sm-10">
+                      <input type="password" class="form-control" name="password">
+                    </div>
+                  </div>
+                  <div class="hr-line-dashed"></div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">投放预算</label>
+                    <div class="col-sm-10">
+                      <input type="text" placeholder="万元" class="form-control">
+                    </div>
+                  </div>
+                  <div class="hr-line-dashed"></div>
+                  <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-2">
+                      <button class="btn btn-primary" type="submit">下一步</button>
+                      <button class="btn btn-white" type="submit">取消</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="pull-right">
+      <strong>GonPush.com</strong> &copy; 2018
+    </div>
+  </div>
+</div>

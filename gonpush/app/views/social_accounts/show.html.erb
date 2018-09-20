@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Creator:</strong>
+  <%= @social_account.creator_id %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @social_account.phone %>
+</p>
+
+<p>
+  <strong>Mobile:</strong>
+  <%= @social_account.mobile %>
+</p>
+
+<p>
+  <strong>Qq:</strong>
+  <%= @social_account.qq %>
+</p>
+
+<p>
+  <strong>Wechat:</strong>
+  <%= @social_account.wechat %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @social_account.email %>
+</p>
+
+<p>
+  <strong>Skype:</strong>
+  <%= @social_account.skype %>
+</p>
+
+<p>
+  <strong>Google:</strong>
+  <%= @social_account.google %>
+</p>
+
+<p>
+  <strong>Yahoo:</strong>
+  <%= @social_account.yahoo %>
+</p>
+
+<%= link_to 'Edit', edit_social_account_path(@social_account) %> |
+<%= link_to 'Back', social_accounts_path %>

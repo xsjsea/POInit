@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Creator Metrics</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Creator</th>
+      <th>Metric</th>
+      <th>Metric name</th>
+      <th>Metric value</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @creator_metrics.each do |creator_metric| %>
+      <tr>
+        <td><%= creator_metric.creator_id %></td>
+        <td><%= creator_metric.metric_id %></td>
+        <td><%= creator_metric.metric_name %></td>
+        <td><%= creator_metric.metric_value %></td>
+        <td><%= link_to 'Show', creator_metric %></td>
+        <td><%= link_to 'Edit', edit_creator_metric_path(creator_metric) %></td>
+        <td><%= link_to 'Destroy', creator_metric, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Creator Metric', new_creator_metric_path %>
