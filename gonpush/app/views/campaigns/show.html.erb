@@ -1,3 +1,34 @@
+<script type="text/javascript">
+  function checkCreator(seq,creatorId){
+    var userName=$("#usrName_"+seq).text() ;
+    $("#detailUsrName").text(userName);
+    var curStatus=$("#r_"+seq).attr("attrStatus");
+    if(curStatus==0){
+      $("#btn_invite").text("邀请");
+      $("#btn_invite").attr("seq",seq);
+    }else{
+      $("#btn_invite").text("取消邀请");
+      $("#btn_invite").attr("seq",seq);
+    }
+   //alert($("#r_"+seq).attr("attrStatus"));
+  }
+
+  function invite(){
+    var seq=$("#btn_invite").attr("seq");
+    var curStatus=$("#r_"+seq).attr("attrStatus");
+     if(curStatus==0){//invite
+      $("#r_"+seq).attr("attrStatus","1");
+      $("#inviteStatus_"+seq).text("已邀请");
+      $("#btn_invite").text("取消邀请");
+    }else{//cancel invite
+      $("#r_"+seq).attr("attrStatus","0");
+      $("#inviteStatus_"+seq).text("未邀请");
+      $("#btn_invite").text("邀请");
+    }
+
+  }
+</script>
+
 <div id="page-wrapper" class="gray-bg">
   <div class="wrapper wrapper-content  animated fadeInRight">
     <div class="row">
@@ -46,7 +77,7 @@
                 </tbody>
               </table>
 
-
+              
               <div class="clients-list">
                 <div class="tab-pane active">
                   <div class="full-height-scroll">
@@ -63,55 +94,20 @@
                           </tr>
                           </thead>
                           <tbody>
+                          <% if @users.empty? -%>
 
-                          <tr>
+                          <%else -%>
+                        <% @users.each_with_index do |user,i| %>
+                         <tr id="r_<%=i%>" attrStatus="0" onclick="checkCreator(<%=i%>,<%=user.id%>)">
                             <td class="client-avatar"><img alt="image" src="/assets/a1.jpg"> </td>
-                            <td><a data-toggle="tab" href="#contact-1" class="client-link">真叫卢俊</a></td>
+                            <td><a data-toggle="tab" href="#contact-1" class="client-link" id="usrName_<%=i%>">  <%=user.username%></a></td>
                             <td> 190万</td>
                             <td> 280万</td>
                             <td> 200万</td>
-                            <td class="client-status"><span class="label label-primary">已邀请</span></td>
-                          </tr>
-                          <tr>
-                            <td class="client-avatar"><img alt="image" src="/assets/a2.jpg"> </td>
-                            <td><a data-toggle="tab" href="#contact-2" class="client-link">真叫卢俊</a></td>
-                            <td> 190万</td>
-                            <td> 280万</td>
-                            <td> 200万</td>
-                            <td class="client-status"><span class="label label-default">未邀请</span></td>
-                          </tr>
-                          <tr>
-                            <td class="client-avatar"><img alt="image" src="/assets/a3.jpg"> </td>
-                            <td><a data-toggle="tab" href="#contact-3" class="client-link">真叫卢俊</a></td>
-                            <td> 190万</td>
-                            <td> 280万</td>
-                            <td> 200万</td>
-                            <td class="client-status"><span class="label label-default">未邀请</span></td>
-                          </tr>
-                          <tr>
-                            <td class="client-avatar"><img alt="image" src="/assets/a4.jpg"> </td>
-                            <td><a data-toggle="tab" href="#contact-4" class="client-link">真叫卢俊</a></td>
-                            <td> 190万</td>
-                            <td> 280万</td>
-                            <td> 200万</td>
-                            <td class="client-status"><span class="label label-default">未邀请</span></td>
-                          </tr>
-                          <tr>
-                            <td class="client-avatar"><img alt="image" src="/assets/a5.jpg"> </td>
-                            <td><a data-toggle="tab" href="#contact-5" class="client-link">真叫卢俊</a></td>
-                            <td> 190万</td>
-                            <td> 280万</td>
-                            <td> 200万</td>
-                            <td class="client-status"><span class="label label-default">未邀请</span></td>
-                          </tr>
-                          <tr>
-                            <td class="client-avatar"><img alt="image" src="/assets/a6.jpg"> </td>
-                            <td><a data-toggle="tab" href="#contact-" class="client-link">真叫卢俊</a></td>
-                            <td> 190万</td>
-                            <td> 280万</td>
-                            <td> 200万</td>
-                            <td class="client-status"><span class="label llabel-default">未邀请</span></td>
-                          </tr>
+                            <td class="client-status"><span id="inviteStatus_<%=i%>" class="label label-primary">未邀请</span></td>
+                         </tr>
+                        <% end %>
+                         <% end %>
                           </tbody>
                         </table>
                     </div>
@@ -133,14 +129,14 @@
                         </div>
                       </div>
                       <div class="col-lg-8">
-                          <strong>
-                            真叫卢俊
+                          <strong id="detailUsrName">
+                            <%= @users[0].username %> 
                           </strong>
                           <p>
                             地产大号真叫卢俊创始人
                           </p>
-                          <button type="button" class="btn btn-default btn-sm btn-block">
-                            取消邀请
+                          <button id="btn_invite" type="button" class="btn btn-default btn-sm btn-block" onclick="invite()">
+                            邀请
                           </button>
                       </div>
                   </div>

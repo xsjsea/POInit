@@ -11,6 +11,7 @@ class CampaignsController < ApplicationController
   # GET /campaigns/1
   # GET /campaigns/1.json
   def show
+    @users=User.new.getcreator;
   end
 
   # GET /campaigns/new

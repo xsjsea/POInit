@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :orders
   resources :tags
   resources :schedules
   resources :areas

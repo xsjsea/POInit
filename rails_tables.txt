@@ -1,4 +1,7 @@
 rails generate scaffold campaigns name:string description:string start_date:datetime budget:float creator_id integer
+
+rails generate scaffold orders campaign_id,creator_id,budget:float,user_id:integer start_date:datetime   description:string  
+
 rails generate scaffold users status:string usertype:string username:string truename:string password:string province_id:integer city_id:integer distirct_id:integer address:string user_comment:string
 rails generate scaffold services service_name:string service_description:string service_price:float creator_id:integer 
 rails generate scaffold metrics name:string
