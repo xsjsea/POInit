@@ -11,7 +11,7 @@ class CampaignsController < ApplicationController
   # GET /campaigns/1
   # GET /campaigns/1.json
   def show
-    @users=User.new.getcreator;
+  @users=User.new.getcreator;
   end
 
   # GET /campaigns/new
@@ -30,6 +30,7 @@ class CampaignsController < ApplicationController
 
     respond_to do |format|
       if @campaign.save
+      
         format.html { redirect_to @campaign, notice: 'Campaign was successfully created.' }
         format.json { render :show, status: :created, location: @campaign }
       else
@@ -71,7 +72,7 @@ class CampaignsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def campaign_params
-      params.require(:campaign).permit(:name, :description, :start, :budget)
+      params.require(:campaign).permit(:name, :description, :start, :budget,:user_id)
     end
 
     def admin_layout

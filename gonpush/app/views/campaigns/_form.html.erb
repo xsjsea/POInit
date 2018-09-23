@@ -49,12 +49,14 @@
           </div>
         </div>
         <div class="hr-line-dashed"></div>
+         <%= form.hidden_field :user_id,value:"1"%>
         <div class="form-group">
           <div class="col-sm-4 col-sm-offset-2">
             <%= form.submit '下一步',class:'btn btn-primary' %>
             <button class="btn btn-white" type="submit">取消</button>
           </div>
         </div>
+
       <% end %>
     </div>
 </div>

@@ -6,8 +6,4 @@ class Campaign < ApplicationRecord
     @campaign = Campaign.new
     @users = User.all
   end
-
-
-
 end
-Campaign.new
