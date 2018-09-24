@@ -1,3 +1,4 @@
+<h3>欢迎注册原力推平台</h3>
 <%= form_with(model: user, local: true) do |form| %>
   <% if user.errors.any? %>
     <div id="error_explanation">
@@ -10,58 +11,26 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.text_field :status %>
-  </div>
-
-  <div class="field">
-    <%= form.label :usertype %>
-    <%= form.text_field :usertype %>
-  </div>
-
-  <div class="field">
-    <%= form.label :username %>
-    <%= form.text_field :username %>
-  </div>
-
-  <div class="field">
-    <%= form.label :truename %>
-    <%= form.text_field :truename %>
-  </div>
-
-  <div class="field">
-    <%= form.label :password %>
-    <%= form.text_field :password %>
-  </div>
-
-  <div class="field">
-    <%= form.label :province_id %>
-    <%= form.number_field :province_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :city_id %>
-    <%= form.number_field :city_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :distirct_id %>
-    <%= form.number_field :distirct_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :address %>
-    <%= form.text_field :address %>
-  </div>
-
-  <div class="field">
-    <%= form.label :user_comment %>
-    <%= form.text_field :user_comment %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+             
+              <div class="form-group">
+                       <%= form.text_field :username,class:'form-control',placeholder:'昵称' %>
+              </div>
+              <div class="form-group">
+                <%= form.text_field :truename,class:'form-control',placeholder:'手机' %>
+                
+              </div>
+              <div class="form-group">
+                <%= form.password_field :password,class:'form-control',placeholder:'密码' %>
+              </div>
+               <%= form.hidden_field :status,value:"1"%>
+               <%= form.hidden_field :usertype,value:"0"%>
+               <%= form.hidden_field :province_id,value:""%>
+               <%= form.hidden_field :city_id,value:""%>
+               <%= form.hidden_field :distirct_id,value:""%>
+               <%= form.hidden_field :address,value:""%>
+               <%= form.hidden_field :user_comment,value:""%>
+               <%= form.submit '注册',class:'btn btn-primary block full-width m-b' %>
+              <p class="text-muted text-center"><small>已经有注册账户?</small></p>
+              <a class="btn btn-sm btn-white btn-block" href="login.html">立即登录</a>
+        
 <% end %>

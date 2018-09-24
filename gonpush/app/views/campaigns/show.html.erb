@@ -6,9 +6,11 @@
     if(curStatus==0){
       $("#btn_invite").text("邀请");
       $("#btn_invite").attr("seq",seq);
+      $("#btn_invite").attr("attrCreatorId",creatorId);
     }else{
       $("#btn_invite").text("取消邀请");
       $("#btn_invite").attr("seq",seq);
+      $("#btn_invite").attr("attrCreatorId",creatorId);
     }
    //alert($("#r_"+seq).attr("attrStatus"));
   }
@@ -20,10 +22,53 @@
       $("#r_"+seq).attr("attrStatus","1");
       $("#inviteStatus_"+seq).text("已邀请");
       $("#btn_invite").text("取消邀请");
+      //generate order
+       alert($("#btn_invite").attr("attrCreatorId"));
+
+      
+
+         json={  
+                   marketer_id : $("#marketer_id").val(),
+                   creator_id :  $("#btn_invite").attr("attrCreatorId"), 
+                   campaign_id : $("#campaign_id").val()  
+         }  
+  
+         $.ajax({  
+             type: "POST",  
+             url: "generateOrder",  
+             data: json,  
+             dataType: "json",  
+             success: function(data, textStatus){  
+                     alert("hi");
+                      },  
+             error:function(data){  
+                     alert("请求后台数据出错")  
+                   }  
+         });       
+      
+
     }else{//cancel invite
       $("#r_"+seq).attr("attrStatus","0");
       $("#inviteStatus_"+seq).text("未邀请");
       $("#btn_invite").text("邀请");
+      //cancel order
+         $.ajax({
+               url:'/orders/1',
+               type:'POST',
+               dataType: 'json',
+               data:{
+                   marketer_id : $("#marketer_id").val(),
+                   creator_id :  $("#btn_invite").attr("attrCreatorId"), 
+                   campaign_id : $("#campaign_id").val()  
+               },
+               success:function (data) {
+                   var result = $.parseJSON( data );
+                   alert("取消成功");
+               },
+               error:function (data) {
+                alert("取消失败");
+               }
+           });
     }
 
   }
@@ -50,8 +95,7 @@
                   </button>
                 </span>
               </div>
-              <input type="hidden"  id="campaign_id" value="<%= @campaign.id %> "/>
-               
+             
               <table class="table">
                 <thead>
                 <tr>
@@ -136,9 +180,15 @@
                           <p>
                             地产大号真叫卢俊创始人
                           </p>
-                          <button id="btn_invite" type="button" class="btn btn-default btn-sm btn-block" onclick="invite()">
-                            邀请
-                          </button>
+                          <%= form_for @order, remote: true do |f| %>
+                          <%= f.hidden_field :campaign_id,value:"1"%>
+                          <%= f.hidden_field :marketer_id,value:"1"%>
+                          <%= f.hidden_field :creator_id,value:"1"%>
+                          <%= f.hidden_field :budget,value:"1"%>
+                             <%= f.hidden_field :start_date,value:""%>
+                                <%= f.hidden_field :description,value:"test999"%>
+                          <%= f.submit '邀请',class:'btn btn-primary' %>
+                          <% end %>
                       </div>
                   </div>
                   <div class="client-detail">

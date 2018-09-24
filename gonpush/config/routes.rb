@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  
+  get 'sessions/new'
   resources :tasks
   resources :orders
   resources :tags
@@ -14,7 +16,12 @@ Rails.application.routes.draw do
   resources :metrics
   resources :creator_metrics
   resources :services
-  resources :users
+  
   resources :campaigns
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  post 'campaigns/generateOrder'
+  get '/login', to: 'sessions#login'
+  post '/login' , to:'sessions#create'
+  delete '/logout' , to: 'sessions#destrory'
+  resources :users
 end
