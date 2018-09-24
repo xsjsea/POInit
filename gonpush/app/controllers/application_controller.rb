@@ -1,7 +1,5 @@
 class ApplicationController < ActionController::Base
-	#skip_before_filter :verify_authenticity_token 
-	#skip_before_filter :verify_authenticity_token, :only => [:create]
-skip_before_action :verify_authenticity_token, :only =>[:create]
+ include SessionsHelper
   def new
     #@user_id = AES.encrypt(current_user.id.to_s, "自定义密钥")
   end
