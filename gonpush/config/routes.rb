@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   resources :metrics
   resources :creator_metrics
   resources :services
-  
+  resources :users
   resources :campaigns
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   post 'campaigns/generateOrder'
@@ -24,5 +24,8 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   post '/login' , to:'sessions#create'
   delete '/logout' , to: 'sessions#destrory'
-  resources :users
+  get '/getOrder', to: 'sessions#showOrder'
+  post '/updateSchedule', to: 'sessions#updateSchedule'
+ 
+
 end
