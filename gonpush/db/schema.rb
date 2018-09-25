@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_23_114612) do
+ActiveRecord::Schema.define(version: 2018_09_25_071535) do
 
-  create_table "areas", options: "ENGINE=MyISAM DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "areas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "areaName"
     t.integer "area_level"
     t.integer "area_sequence"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2018_09_23_114612) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "campaigns", options: "ENGINE=MyISAM DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "campaigns", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.date "start"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2018_09_23_114612) do
     t.integer "user_id"
   end
 
-  create_table "categories", options: "ENGINE=MyISAM DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.integer "parent"
     t.datetime "created_at", null: false
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 2018_09_23_114612) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "contracts", options: "ENGINE=MyISAM DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "contracts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "creator_id"
     t.integer "marketer_id"
     t.integer "campaigns_id"
@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(version: 2018_09_23_114612) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "creator_id"
+    t.string "status"
   end
 
   create_table "posts", options: "ENGINE=MyISAM DEFAULT CHARSET=utf8", force: :cascade do |t|

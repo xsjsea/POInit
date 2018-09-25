@@ -21,18 +21,25 @@
                     </tr>
                     </thead>
                     <tbody>
-                    
+                    <% @orders.each_with_index do |order,i| %>  
                     <tr>
-                      <td>3214</td>
-                      <td>麦当劳活动</td>
-                      <td class="client-avatar"><img alt="image" src="img/a1.jpg"></td>
-                      <td>真叫卢俊</td>
-                      <td>¥500,000.00</td>
-                      <td>2015-05-03</td>
-                      <td><span class="label label-primary">待处理</span></td>
+                      <td><%=order.id%></td>
+                      <td><%=order.name%></td>
+                      <td class="client-avatar"><img alt="image" src="img/<%=order.avatar%>"></td>
+                      <td><%=order.username%></td>
+                      <td>¥<%=order.budget%></td>
+                      <td><%=order.start%> </td>
+                      <td><span class="label label-primary"><% if order.status=='0' %>待处理
+                                                            <%elsif order.status=="1" %>进行中
+                                                            <%elsif order.status=="2" %>已完成
+                                                            <%elsif order.status=="4" %>已关闭
+                                                            <%elsif order.status=="5" %>已取消
+                                                            <%else%>不确定
+                                                            <%end%>
+                                                          </span></td>
                       <td><a href="creator_order_detail.html">查看</a></td>
                     </tr>
-                    
+                    <%end%>
                     </tbody>
                   </table>
               </div>
