@@ -11,7 +11,12 @@
       </ul>
     </div>
   <% end %>
-             
+
+              <div class="form-group">
+                <%= form.select :usertype, [['请选择身份', '-1'], ['我是广告主', '1'], ['我是自媒体', '0']],{},class:"form-control m-b"%>
+ 
+          
+            </div>
               <div class="form-group">
                        <%= form.text_field :username,class:'form-control',placeholder:'昵称' %>
               </div>
@@ -23,7 +28,6 @@
                 <%= form.password_field :password,class:'form-control',placeholder:'密码' %>
               </div>
                <%= form.hidden_field :status,value:"1"%>
-               <%= form.hidden_field :usertype,value:"0"%>
                <%= form.hidden_field :province_id,value:""%>
                <%= form.hidden_field :city_id,value:""%>
                <%= form.hidden_field :distirct_id,value:""%>

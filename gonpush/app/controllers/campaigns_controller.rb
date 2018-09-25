@@ -6,6 +6,8 @@ class CampaignsController < ApplicationController
   # GET /campaigns.json
   def index
     @campaigns = Campaign.all
+      
+     @user=User.find_by_id(session[:user_id])
   end
 
   # GET /campaigns/1
@@ -18,7 +20,7 @@ class CampaignsController < ApplicationController
   # GET /campaigns/new
   def new
     @campaign = Campaign.new
-    @user = session[:admin]
+    @user_id = session[:user_id]
   end
 
   # GET /campaigns/1/edit

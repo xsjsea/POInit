@@ -13,8 +13,13 @@ class SessionsController < ApplicationController
   else
          #log_in(user)
          #
-         session[:admin] = user if (session[:admin] ==nil)
-         redirect_to  campaigns_path
+         session[:user_id] =  user.id
+          if(user.usertype=="0")
+          redirect_to  orders_path
+          else
+           redirect_to  campaigns_path
+          end
+       
     end
   end
   def destrory

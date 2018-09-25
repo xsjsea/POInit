@@ -33,8 +33,14 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
+        #format.html { redirect_to @user, notice: 'User was successfully created.' }
+        #format.json { render :show, status: :created, location: @user }
+        session[:user_id] =  @user.id
+        if(@user.usertype=="0")
+        format.html { redirect_to orders_path,notice: 'User was successfully updated.' }
+        else
+        format.html { redirect_to campaigns_path,notice: 'User was successfully updated.' }
+      end
       else
         format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
