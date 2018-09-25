@@ -21,6 +21,7 @@ class CampaignsController < ApplicationController
   def new
     @campaign = Campaign.new
     @user_id = session[:user_id]
+    @user=User.find_by_id(@user_id)
   end
 
   # GET /campaigns/1/edit

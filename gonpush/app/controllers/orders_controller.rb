@@ -1,10 +1,22 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
+  layout :products_layout
 
+  private  
+  def products_layout 
+    @user=User.find_by_id(session[:user_id]) 
+    if @user.usertype=="0"
+       return 'creator'
+    else
+      return 'marketer'
+    end
+   
+ end  
   # GET /orders
   # GET /orders.json
   def index
     @orders = Order.all
+
   end
 
   # GET /orders/1

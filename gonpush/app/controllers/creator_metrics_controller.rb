@@ -1,6 +1,17 @@
 class CreatorMetricsController < ApplicationController
   before_action :set_creator_metric, only: [:show, :edit, :update, :destroy]
+  layout :products_layout
 
+  private  
+  def products_layout 
+    @user=User.find_by_id(session[:user_id]) 
+    if @user.usertype=="0"
+       return 'creator'
+    else
+      return 'marketer'
+    end
+   
+ end  
   # GET /creator_metrics
   # GET /creator_metrics.json
   def index
