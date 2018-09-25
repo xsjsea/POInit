@@ -2,16 +2,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 layout :products_layout
 
-  private  
-  def products_layout 
-    @user=User.find_by_id(session[:user_id]) 
-    if @user.usertype=="0"
-       return 'creator'
-    else
-      return 'marketer'
-    end
-   
- end  
+
   # GET /posts
   # GET /posts.json
   def index
@@ -82,4 +73,14 @@ layout :products_layout
     def post_params
       params.require(:post).permit(:post_author, :post_date, :post_title, :post_content, :post_status, :post_modified, :post_type)
     end
+
+  def products_layout 
+    @user=User.find_by_id(session[:user_id]) 
+    if @user.usertype=="0"
+       return 'creator'
+    else
+      return 'marketer'
+    end
+   
+ end  
 end

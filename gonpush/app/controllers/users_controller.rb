@@ -3,16 +3,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   layout :products_layout
 
-  private  
-  def products_layout 
-    @user=User.find_by_id(session[:user_id]) 
-    if @user.usertype=="0"
-       return 'creator'
-    else
-      return 'marketer'
-    end
-   
- end  
+ 
   # GET /users
   # GET /users.json
   def index
@@ -94,4 +85,13 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:status, :usertype, :username, :truename, :password, :province_id, :city_id, :distirct_id, :address, :user_comment)
     end
+    def products_layout 
+    @user=User.find_by_id(session[:user_id]) 
+    if @user.usertype=="0"
+       return 'creator'
+    else
+      return 'marketer'
+    end
+   
+ end  
 end

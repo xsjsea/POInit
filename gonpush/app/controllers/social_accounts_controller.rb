@@ -2,16 +2,8 @@ class SocialAccountsController < ApplicationController
   before_action :set_social_account, only: [:show, :edit, :update, :destroy]
 layout :products_layout
 
-  private  
-  def products_layout 
-    @user=User.find_by_id(session[:user_id]) 
-    if @user.usertype=="0"
-       return 'creator'
-    else
-      return 'marketer'
-    end
-   
- end  
+ 
+  
   # GET /social_accounts
   # GET /social_accounts.json
   def index
@@ -82,4 +74,13 @@ layout :products_layout
     def social_account_params
       params.require(:social_account).permit(:creator_id, :phone, :mobile, :qq, :wechat, :email, :skype, :google, :yahoo)
     end
+    def products_layout 
+    @user=User.find_by_id(session[:user_id]) 
+    if @user.usertype=="0"
+       return 'creator'
+    else
+      return 'marketer'
+    end
+   
+ end  
 end

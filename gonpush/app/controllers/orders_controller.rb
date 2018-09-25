@@ -2,22 +2,17 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
   layout :products_layout
 
-  private  
-  def products_layout 
-    @user=User.find_by_id(session[:user_id]) 
-    if @user.usertype=="0"
-       return 'creator'
-    else
-      return 'marketer'
-    end
-   
- end  
+  
   # GET /orders
   # GET /orders.json
   def index
     @user=User.find_by_id(session[:user_id])
-    @orders = Order.all
 
+     if @user.usertype=="0"
+        @orders = Order.find_by_creator_id(@user.id)
+    else
+        @orders = Order.find_by_marketer_id(@user.id)
+    end
   end
 
   # GET /orders/1
@@ -27,7 +22,7 @@ class OrdersController < ApplicationController
 
   # GET /orders/new
   def new
-    @order = Order.new
+    #@order = Order.new
   end
 
   # GET /orders/1/edit
@@ -84,4 +79,14 @@ class OrdersController < ApplicationController
     def order_params
       params.require(:order).permit(:campaign_id, :marketer_id, :budget, :start_date, :description,:creator_id)
     end
+
+   def products_layout 
+    @user=User.find_by_id(session[:user_id]) 
+    if @user.usertype=="0"
+       return 'creator'
+    else
+      return 'marketer'
+    end
+   
+ end  
 end
