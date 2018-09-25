@@ -5,15 +5,16 @@ class CampaignsController < ApplicationController
   # GET /campaigns
   # GET /campaigns.json
   def index
-    @campaigns = Campaign.all
-      
-     @user=User.find_by_id(session[:user_id])
+    #@campaigns = Campaign.all
+    @campaign = Campaign.new  
+    @user=User.find_by_id(session[:user_id])
   end
 
   # GET /campaigns/1
   # GET /campaigns/1.json
   def show
   @users=User.new.getcreator;
+  @user=User.find_by_id(session[:user_id])
   @order=Order.new
   end
 

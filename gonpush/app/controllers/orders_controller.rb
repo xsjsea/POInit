@@ -15,6 +15,7 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
+    @user=User.find_by_id(session[:user_id])
     @orders = Order.all
 
   end
