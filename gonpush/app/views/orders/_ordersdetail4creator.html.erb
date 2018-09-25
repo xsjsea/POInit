@@ -1,6 +1,6 @@
 <div class="row border-bottom">
         <div class="ibox-title">
-          <p>订单号：<strong>003214</strong></p>
+          <p>订单号：<strong><%=@orderInfo.id%></strong></p>
         </div>
       </div>
 
@@ -97,14 +97,14 @@
                         <tbody>
                         <tr>
                           <td><div><strong class="small">项目名称 / 关键信息</strong></div>
-                          <small>百雀羚母亲节活动 / 月光宝盒系列</small></td>
+                          <small><%=@orderInfo.name%> / <%=@orderInfo.description%> </small></td>
                         </tr>
                         <tr>
                           <td>
                             <div><strong class="small">投放日期 / 预算</strong></div>
-                            <small>2018-11-17 / 80万 </small>
+                            <small><%=@orderInfo.start%>  / <%=@orderInfo.budget%> 万 </small>
                             <div><strong class="small">联系方式</strong></div>
-                            <small>北京好梦成真文化创意有限公司<br>张先生 / 138 8888 8888</small>
+                            <small><%=@orderInfo.address%> <br> <%=@orderInfo.truename%>/<%=@orderInfo.mobile%></small>
                           </td>
                         </tr>
                         </tbody>

@@ -22,6 +22,10 @@ class OrdersController < ApplicationController
   # GET /orders/1.json
   def show
      @user=User.find_by_id(session[:user_id])
+     order_id = Order.find(params[:orderId])
+     
+     @orderInfo=Order.select("campaigns.name,campaigns.description,campaigns.budget,campaigns.start,users.mobile,users.truename,users.address,orders.id").joins("LEFT JOIN campaigns  on orders.campaign_id=campaigns.id LEFT JOIN users on orders.creator_id=users.id where orders.id=#{order_id}")
+ 
   end
 
   # GET /orders/new
