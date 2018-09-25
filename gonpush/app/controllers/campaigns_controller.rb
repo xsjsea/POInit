@@ -1,7 +1,7 @@
 class CampaignsController < ApplicationController
   layout :admin_layout
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
-
+   
   # GET /campaigns
   # GET /campaigns.json
   def index
