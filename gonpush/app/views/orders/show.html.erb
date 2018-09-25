@@ -1,29 +1,20 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Campaign:</strong>
-  <%= @order.campaign_id %>
-</p>
 
-<p>
-  <strong>Marketer:</strong>
-  <%= @order.marketer_id %>
-</p>
-
-<p>
-  <strong>Budget:</strong>
-  <%= @order.budget %>
-</p>
-
-<p>
-  <strong>Start date:</strong>
-  <%= @order.start_date %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @order.description %>
-</p>
-
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>
+<div id="page-wrapper" class="gray-bg">
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-lg-12">
+        <%if @user.usertype=='0'%>
+        <%= render 'ordersdetail4creator'%>
+        <%else%>
+        <%= render 'ordersdetail4marketer' %>
+        <%end%>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="pull-right">
+      <strong>GonPush.com</strong> &copy; 2018
+    </div>
+  </div>
+</div>
