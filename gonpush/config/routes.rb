@@ -23,9 +23,9 @@ Rails.application.routes.draw do
   get '/register', to: 'users#new'
   get '/login', to: 'sessions#new'
   post '/login' , to:'sessions#create'
-  delete '/logout' , to: 'sessions#destrory'
-  get '/getOrder', to: 'sessions#showOrder'
-  post '/updateSchedule', to: 'sessions#updateSchedule'
+  get '/logout' , to: 'sessions#destrory'
+  get '/getOrder', to: 'orders#showOrder'
+  post '/updateSchedule', to: 'orders#updateSchedule'
  
 
 end
