@@ -59,7 +59,7 @@ def showOrder
     parameter_id=params[:id]
     @schedules= Schedule.select("flows.flow_order,flows.flow_name,schedules.workdays,schedules.ends_on,schedules.id").joins("LEFT JOIN flows on schedules.flow_id = flows.id
     where schedules.order_id=#{parameter_id}")
-     #@orderInfo=Order.select("campaigns.name,campaigns.description,campaigns.budget,campaigns.start")
+    @orderInfo=Order.select("campaigns.name,campaigns.description,campaigns.budget,campaigns.start")
      #.joins("LEFT JOIN campaigns  on orders.campaign_id=campaigns.id where orders.id=#{parameter_id}")
      
   end
