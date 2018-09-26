@@ -25,7 +25,6 @@ class SessionsController < ApplicationController
   end
   def destrory
          session[:user_id] =  nil
-         redirect_to  '/login'
-  end
+         redirect_to  login_path
   
 end
