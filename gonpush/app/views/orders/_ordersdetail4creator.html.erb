@@ -171,7 +171,7 @@ Date.prototype.format = function(format)
           <div class="full-height-scroll white-bg border-left">
               <div class="element-detail-box">
                   <div class="tab-content">
-                    <div id="tab-1" class="tab-pane">
+                    <div id="tab-1" class="tab-pane active">
                       <h3>需求详情</h3>
                       <table class="table">
                         <thead>
@@ -180,16 +180,16 @@ Date.prototype.format = function(format)
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
+                         <tr>
                           <td><div><strong class="small">项目名称 / 关键信息</strong></div>
-                          <small>  </small></td>
+                          <small><%=@orders[0].name%> / <%=@orders[0].description%> </small></td>
                         </tr>
                         <tr>
                           <td>
                             <div><strong class="small">投放日期 / 预算</strong></div>
-                            <small>  万 </small>
+                            <small><%=@orders[0].start%>  / <%=@orders[0].budget%> 万 </small>
                             <div><strong class="small">联系方式</strong></div>
-                            <small> </small>
+                            <small><%=@orders[0].address%> <br> <%=@orders[0].truename%>/<%=@orders[0].mobile%></small>
                           </td>
                         </tr>
                         </tbody>
@@ -274,7 +274,7 @@ Date.prototype.format = function(format)
                       <button class="btn btn-primary btn-sm" type="button" onclick="updateSchedule()">提交排期</button>                 
                     </div>
 
-                    <div id="tab-2" class="tab-pane active">
+                    <div id="tab-2" class="tab-pane">
                       <div class="pull-right">
                         <a href="javascript:;"><!-- 保存 --></a>
                       </div>
@@ -322,7 +322,6 @@ Date.prototype.format = function(format)
 
                       </div>
                     </div>
-
                     <div id="tab-3" class="tab-pane">
                       <div class="pull-right">
                         <a href="javascript:;">编辑</a>
@@ -367,7 +366,138 @@ Date.prototype.format = function(format)
 
                       </div>
                     </div>
+                    <div id="tab-4" class="tab-pane">
+                      <div class="pull-right">
+                        <a href="javascript:;">编辑</a>
+                      </div>
 
+                      <h3>具体脚本</h3>
+                      <p>
+                        <a href="https://shimo.im/docs/njcbckIHiI4dvq2K" target="blank">
+                        https://shimo.im/docs/njcbckIHiI4dvq2K
+                        </a>
+                      </p>
+                      <div class="hr-line-dashed"></div>
+                      <div class="feed-activity-list">
+                        <div class="feed-element">
+                          <a href="#" class="pull-left">
+                            <img alt="image" class="img-circle" src="img/a1.jpg">
+                          </a>
+                          <div class="media-body ">
+                            <small class="pull-right text-navy">刚刚</small>
+                            <strong>释老毛</strong>
+                            <p>哈哈哈哈 现在流行这种说法</p>
+                          </div>
+                        </div>
+
+                        <div class="feed-element">
+                          <a href="#" class="pull-left">
+                            <img alt="image" class="img-circle" src="img/a2.jpg">
+                          </a>
+                          <div class="media-body ">
+                            <small class="pull-right">10分钟前</small>
+                            <strong>雪球社区</strong>
+                            <p>有几处语句麻烦改下</p>
+                          </div>
+                        </div>
+
+                        <div class="input-group">
+                          <input type="text" class="form-control">
+                          <span class="input-group-btn">
+                          <button type="button" class="btn btn-primary">发布</button>
+                          </span>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div id="tab-5" class="tab-pane">
+                      <div class="pull-right">
+                        <a href="javascript:;">编辑</a>
+                      </div>
+
+                      <h3>绘图视频</h3>
+                      <p>
+                        <a href="https://shimo.im/docs/njcbckIHiI4dvq2K" target="blank">
+                        https://shimo.im/docs/njcbckIHiI4dvq2K
+                        </a>
+                      </p>
+                      <div class="hr-line-dashed"></div>
+                      <div class="feed-activity-list">
+                        <div class="feed-element">
+                          <a href="#" class="pull-left">
+                            <img alt="image" class="img-circle" src="img/a1.jpg">
+                          </a>
+                          <div class="media-body ">
+                            <small class="pull-right text-navy">刚刚</small>
+                            <strong>释老毛</strong>
+                            <p>哈哈哈哈 现在流行这种说法</p>
+                          </div>
+                        </div>
+
+                        <div class="feed-element">
+                          <a href="#" class="pull-left">
+                            <img alt="image" class="img-circle" src="img/a2.jpg">
+                          </a>
+                          <div class="media-body ">
+                            <small class="pull-right">10分钟前</small>
+                            <strong>雪球社区</strong>
+                            <p>有几处语句麻烦改下</p>
+                          </div>
+                        </div>
+
+                        <div class="input-group">
+                          <input type="text" class="form-control">
+                          <span class="input-group-btn">
+                          <button type="button" class="btn btn-primary">发布</button>
+                          </span>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div id="tab-6" class="tab-pane">
+                      <div class="pull-right">
+                        <a href="javascript:;">编辑</a>
+                      </div>
+
+                      <h3>排版成稿</h3>
+                      <p>
+                        <a href="https://shimo.im/docs/njcbckIHiI4dvq2K" target="blank">
+                        https://shimo.im/docs/njcbckIHiI4dvq2K
+                        </a>
+                      </p>
+                      <div class="hr-line-dashed"></div>
+                      <div class="feed-activity-list">
+                        <div class="feed-element">
+                          <a href="#" class="pull-left">
+                            <img alt="image" class="img-circle" src="img/a1.jpg">
+                          </a>
+                          <div class="media-body ">
+                            <small class="pull-right text-navy">刚刚</small>
+                            <strong>释老毛</strong>
+                            <p>哈哈哈哈 现在流行这种说法</p>
+                          </div>
+                        </div>
+
+                        <div class="feed-element">
+                          <a href="#" class="pull-left">
+                            <img alt="image" class="img-circle" src="img/a2.jpg">
+                          </a>
+                          <div class="media-body ">
+                            <small class="pull-right">10分钟前</small>
+                            <strong>雪球社区</strong>
+                            <p>有几处语句麻烦改下</p>
+                          </div>
+                        </div>
+
+                        <div class="input-group">
+                          <input type="text" class="form-control">
+                          <span class="input-group-btn">
+                          <button type="button" class="btn btn-primary">发布</button>
+                          </span>
+                        </div>
+
+                      </div>
+                    </div>
                     <div id="tab-7" class="tab-pane">
                       <div class="form-group">
                         <h3>合作评价</h3>

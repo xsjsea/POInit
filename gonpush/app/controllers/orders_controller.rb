@@ -59,8 +59,11 @@ def showOrder
     parameter_id=params[:id]
     @schedules= Schedule.select("flows.flow_order,flows.flow_name,schedules.workdays,schedules.ends_on,schedules.id").joins("LEFT JOIN flows on schedules.flow_id = flows.id
     where schedules.order_id=#{parameter_id}")
-    @orderInfo=Order.select("campaigns.name,campaigns.description,campaigns.budget,campaigns.start")
-     #.joins("LEFT JOIN campaigns  on orders.campaign_id=campaigns.id where orders.id=#{parameter_id}")
+     
+     #@orders =Order.select( "orders.status,campaigns.name,campaigns.budget,campaigns.start,orders.id, users.username,creator_exts.avatar").joins("LEFT JOIN campaigns  on orders.campaign_id=campaigns.id  LEFT JOIN users on orders.creator_id=users.id  LEFT JOIN creator_exts  on creator_exts.userid=users.id where orders.id=#{parameter_id}")
+     @orders=Order.select("campaigns.name,campaigns.description,campaigns.budget,campaigns.start,users.mobile,users.truename,users.address,orders.id").joins("LEFT JOIN campaigns  on orders.campaign_id=campaigns.id LEFT JOIN users on orders.creator_id=users.id where orders.id=#{parameter_id}")
+ 
+    
      
   end
 
