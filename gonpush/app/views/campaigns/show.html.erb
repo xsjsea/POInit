@@ -2,6 +2,16 @@
   function checkCreator(seq,creatorId){
     var userName=$("#usrName_"+seq).text() ;
     $("#detailUsrName").text(userName);
+    var userDescription=$("#userDescription_"+seq).val() ;
+    $("#userDescription").text(userDescription);
+
+    var fans=$("#fans_"+seq).text() ;
+    $("#fans").text(fans);
+    var reader=$("#reader_"+seq).text() ;
+    $("#reader").text(reader);
+    var price=$("#price_"+seq).text() ;
+    $("#price").text(price);
+
     var curStatus=$("#r_"+seq).attr("attrStatus");
     if(curStatus==0){
       $("#btn_invite").text("邀请");
@@ -12,8 +22,32 @@
       $("#btn_invite").attr("seq",seq);
       $("#btn_invite").attr("attrCreatorId",creatorId);
     }
-   //alert($("#r_"+seq).attr("attrStatus"));
-  }
+ 
+    var order_data={creator_id:creatorId}
+      $.ajax({    
+      type: "POST",
+      url: "/getservice",
+      data: order_data,
+      success: function(data){
+         var serviceHtml="";
+         jQuery.each(data, function(i,item){    
+                serviceHtml=serviceHtml+'<h5>#'+i+':'+item.service_name
+                +'</h5><span class="text-navy small">'+item.service_price
+                +'万元</span><p>'+item.service_description
+                +'</p><hr/>'
+              })
+ 
+          $("#serviceModule").html(serviceHtml)
+           //alert(data);
+          //alert('success')
+      },
+      error:function(){alert('fail')
+
+      }
+               
+               }); 
+     
+}
 
   function invite(){
     var seq=$("#btn_invite").attr("seq");
@@ -43,6 +77,7 @@
 
     }else{//cancel invite
       var order_id=$("#btn_invite").attr("orderId");
+     
       $.ajax({    
       type: "delete",
       url: '/orders/destroy/'+order_id,
@@ -59,6 +94,15 @@
 
     }
 
+  }
+
+  function search(){
+   var searchword=$("#searchword").val();
+   if (searchword==''){
+    alert("请输入搜索关键字");
+    return;
+  }
+   window.location='/campaigns/1?searchword='+searchword;
   }
 </script>
 <input type="hidden" name="marketer_id" id="marketer_id" value="<%=@user.id%>"/>
@@ -77,9 +121,9 @@
           </div>
           <div class="ibox-content">
               <div class="input-group">
-                <input type="text" placeholder="请输入关键字 " class="input form-control">
+                <input type="text" placeholder="请输入关键字 " name="searchword" id="searchword" class="input form-control">
                 <span class="input-group-btn">
-                  <button type="button" class="btn btn btn-primary">
+                  <button onclick="search()" type="button" class="btn btn btn-primary">
                     <i class="fa fa-search"></i> 搜索
                   </button>
                 </span>
@@ -104,12 +148,13 @@
 
                         <%else -%>
                         <% @creators.each_with_index do |creator,i| %>
+                        <input type="hidden" id="userDescription_<%=i%>" value="<%=creator.description%>"/>
                          <tr id="r_<%=i%>" attrStatus="0" onclick="checkCreator(<%=i%>,<%=creator.id%>)">
-                            <td class="client-avatar"><img alt="image" src="/assets/a1.jpg"> </td>
-                            <td><a data-toggle="tab" href="#contact-1" class="client-link" id="usrName_<%=i%>">  <%=creator.username%></a></td>
-                            <td> 190万</td>
-                            <td> 280万</td>
-                            <td> 200万</td>
+                            <td class="client-avatar"><img alt="image" src="/assets/<%=creator.avatar%>"> </td>
+                            <td><a data-toggle="tab" href="#contact-1" class="client-link" id="usrName_<%=i%>"><%=creator.username%></a></td>
+                            <td id="fans_<%=i%>"> <%=creator.fans%>万</td>
+                            <td id="reader_<%=i%>"> <%=creator.reader%>万</td>
+                            <td id="price_<%=i%>"> <%=creator.price%>万</td>
                             <td class="client-status"><span id="inviteStatus_<%=i%>" class="label label-primary">未邀请</span></td>
                          </tr>
                         <% end %>
@@ -123,6 +168,7 @@
           </div>
         </div>
       </div>
+      <%if @creators.length>0%>
       <div class="col-sm-4">
         <div class="ibox ">
           <div class="ibox-content">
@@ -131,15 +177,16 @@
                   <div class="row m-b-lg">
                       <div class="col-lg-4 text-center">
                         <div class="m-b-sm">
-                          <img alt="image" class="img-circle" src="/assets/a1.jpg" style="width: 62px">
+                          <img alt="image" class="img-circle" 
+                          src="/assets/<%=@creators[0].avatar%>" style="width: 62px">
                         </div>
                       </div>
                       <div class="col-lg-8">
                           <strong id="detailUsrName">
                             <%= @creators[0].username %> 
                           </strong>
-                          <p>
-                            地产大号真叫卢俊创始人
+                          <p id="userDescription">
+                             <%= @creators[0].description %> 
                           </p>
                          <button id="btn_invite" type="button" seq="0" attrCreatorId="" onclick="invite()" class="btn btn-default btn-sm btn-block">
                                 邀请
@@ -151,32 +198,22 @@
                         <strong>核心指标</strong>
                         <ul class="list-group clear-list">
                           <li class="list-group-item fist-item">
-                            <span class="pull-right">190万 </span>
+                            <span class="pull-right" id="fans"><%=@creators[0].fans%>万 </span>
                             粉丝数
                           </li>
                           <li class="list-group-item">
-                            <span class="pull-right">280万 </span>
+                            <span class="pull-right" id="reader"><%=@creators[0].reader%>万 </span>
                             阅读量
                           </li>
                           <li class="list-group-item">
-                            <span class="pull-right">60万 </span>
+                            <span class="pull-right" id="price"><%=@creators[0].price%>万 </span>
                             点赞数
                           </li>
                         </ul>
                         <strong>报价方案</strong>
                         <hr />
-                        <h5>#1：入门套餐</h5>
-                        <span class="text-navy small">60万元</span>
-                        <p>修改次数限3次</p>
-                        <hr/>
-                        <h5>#2：标准套餐</h5>
-                        <span class="text-navy small">60万元</span>
-                        <p>修改次数限3次</p>
-                        <hr/>
-                        <h5>#3：专业套餐</h5>
-                        <span class="text-navy small">60万元</span>
-                        <p>修改次数限3次</p>
-                        <hr/>
+
+                      <%= render 'creatorservices' %>
                     </div>
                   </div>
               </div>
@@ -184,6 +221,7 @@
           </div>
         </div>
       </div>
+      <%end%>
     </div>
   </div>
   <div class="footer">

@@ -13,12 +13,26 @@ class CampaignsController < ApplicationController
   # GET /campaigns/1
   # GET /campaigns/1.json
   def show
-   
-  @creators=User.new.getcreator 
+  searchword=params[:searchword]
+  if searchword==nil
+  @creators=User.select("users.id,users.username,users.description,creator_exts.avatar,view_metric.fans, view_metric.reader,view_metric.price")
+ .joins("left join view_metric on users.id = view_metric.creator_id left join creator_exts on users.id = creator_exts.userid where users.usertype='0'") 
+ else
+  @creators=User.select("users.id,users.username,users.description,creator_exts.avatar,view_metric.fans, view_metric.reader,view_metric.price")
+ .joins("left join view_metric on users.id = view_metric.creator_id left join creator_exts on users.id = creator_exts.userid where users.usertype='0' and users.username like '%#{searchword}%'")
+ end
+ # @creators=User.new.getcreator 
+  if @creators.length>0
+  creator_id=@creators[0].id
+  #@creatorservices=Service.find_by_creator_id(@creators[0].id)
+  @services=Service.select("services.creator_id,services.service_name,services.service_description,services.service_price").joins("where services.creator_id=#{creator_id}")
+  end
+  #@services=Services.all
   @user=User.find_by_id(session[:user_id])
   @order=Order.new
   end
 
+ 
   # GET /campaigns/new
   def new
     @campaign = Campaign.new

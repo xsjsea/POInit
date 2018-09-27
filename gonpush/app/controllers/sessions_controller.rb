@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
- 
+  skip_before_action :verify_authenticity_token
   def new
   end
 
@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
          #
          session[:user_id] =  user.id
           if(user.usertype=="0")
-          redirect_to  orders_path
+           redirect_to  orders_path
           else
            redirect_to  campaigns_path
           end
@@ -25,6 +25,13 @@ class SessionsController < ApplicationController
   end
   def destrory
          session[:user_id] =  nil
+         @current_user=nil
          redirect_to  login_path
+  end
+   def getservices
+   creator_id=params[:creator_id]
+   @services=Service.select("services.creator_id,services.service_name,services.service_description,services.service_price").joins("where services.creator_id=#{creator_id}")
+   #render 'creatorservices'
+   render :json => @services.to_json  
   end
 end

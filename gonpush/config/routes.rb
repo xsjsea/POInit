@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   resources :users
   resources :campaigns
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  post 'campaigns/generateOrder'
+ 
   get '/register', to: 'users#new'
   get '/login', to: 'sessions#new'
   post '/login' , to:'sessions#create'
@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   get '/getOrder', to: 'orders#showOrder'
   post '/updateSchedule', to: 'orders#updateSchedule'
   delete "orders/destroy/:id" => "orders#destroy"
+  post  '/getservice',to:'sessions#getservices'
  
 
 end

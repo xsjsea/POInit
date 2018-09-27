@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_25_142128) do
+ActiveRecord::Schema.define(version: 2018_09_27_024823) do
 
   create_table "areas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "areaName"
@@ -45,6 +45,9 @@ ActiveRecord::Schema.define(version: 2018_09_25_142128) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "schedule_id"
+    t.integer "order_id"
+    t.integer "step_order"
+    t.integer "campaign_id"
   end
 
   create_table "contracts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -84,6 +87,12 @@ ActiveRecord::Schema.define(version: 2018_09_25_142128) do
     t.string "flow_type"
     t.string "flow_name"
     t.integer "flow_order"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -180,6 +189,7 @@ ActiveRecord::Schema.define(version: 2018_09_25_142128) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "mobile"
+    t.string "description"
   end
 
 end

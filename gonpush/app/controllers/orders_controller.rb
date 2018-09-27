@@ -144,6 +144,8 @@ def showOrder
   # DELETE /orders/1
   # DELETE /orders/1.json
   def destroy
+    //delete schedules
+    Schedule.find_by_order_id(params[:id])
     Order.find(params[:id]).destroy
   end
 
