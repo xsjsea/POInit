@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token
+  #before_action :set_order, only: [:show, :edit, :update, :destroy]
   layout :products_layout
 
   
@@ -41,16 +42,47 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    @order = Order.new(order_params)
+  @order = Order.new(allowed_params)
+  curTime =Date.today
+    if @order.save
+      #generate schedules
+      sql = ActiveRecord::Base.connection()        
+      sql.insert "INSERT INTO schedules SET campaign_id='#{@order.campaign_id}', 
+      flow_order=1,
+      status='0',
+      flow_id=1, 
+      order_id='#{@order.id}',
+      created_at='#{curTime}',updated_at='#{curTime}'"        
+      sql.insert "INSERT INTO schedules SET campaign_id='#{@order.campaign_id}', 
+      flow_order=2,
+      status='0',
+      flow_id=2, 
+      order_id='#{@order.id}',
+       created_at='#{curTime}',updated_at='#{curTime}'"    
+      sql.insert "INSERT INTO schedules SET campaign_id='#{@order.campaign_id}', 
+      flow_order=3,
+      status='0',
+      flow_id=3, 
+      order_id='#{@order.id}',
+       created_at='#{curTime}',updated_at='#{curTime}'"   
+      sql.insert "INSERT INTO schedules SET campaign_id='#{@order.campaign_id}', 
+      flow_order=4,
+      status='0',
+      flow_id=4, 
+      order_id='#{@order.id}',
+      created_at='#{curTime}',updated_at='#{curTime}'"   
+      sql.insert "INSERT INTO schedules SET campaign_id='#{@order.campaign_id}', 
+      flow_order=5,
+      status='0',
+      flow_id=5, 
+      order_id='#{@order.id}',
+      created_at='#{curTime}',updated_at='#{curTime}'"  
 
-    respond_to do |format|
-      if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
-        format.json { render :show, status: :created, location: @order }
-      else
-        format.html { render :new }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
+      # return New Order ID
+      #
+      render plain: @order.id
+    else
+      render :new
     end
   end
 
@@ -112,22 +144,16 @@ def showOrder
   # DELETE /orders/1
   # DELETE /orders/1.json
   def destroy
-    @order.destroy
-    respond_to do |format|
-      format.html { redirect_to orders_url, notice: 'Order was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    Order.find(params[:id]).destroy
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_order
-      @order = Order.find(params[:id])
-    end
+  
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def order_params
-      params.require(:order).permit(:campaign_id, :marketer_id, :budget, :start_date, :description,:creator_id)
+    def allowed_params
+      params.permit(:campaign_id,:marketer_id,:creator_id,:status)
     end
 
    def products_layout 

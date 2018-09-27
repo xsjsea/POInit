@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+ 
   get 'sessions/new'
   resources :tasks
   resources :orders
@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get '/logout' , to: 'sessions#destrory'
   get '/getOrder', to: 'orders#showOrder'
   post '/updateSchedule', to: 'orders#updateSchedule'
+  delete "orders/destroy/:id" => "orders#destroy"
  
 
 end

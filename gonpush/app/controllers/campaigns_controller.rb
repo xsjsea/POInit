@@ -13,7 +13,8 @@ class CampaignsController < ApplicationController
   # GET /campaigns/1
   # GET /campaigns/1.json
   def show
-  @users=User.new.getcreator;
+   
+  @creators=User.new.getcreator 
   @user=User.find_by_id(session[:user_id])
   @order=Order.new
   end
@@ -36,7 +37,6 @@ class CampaignsController < ApplicationController
 
     respond_to do |format|
       if @campaign.save
-      
         format.html { redirect_to @campaign, notice: 'Campaign was successfully created.' }
         format.json { render :show, status: :created, location: @campaign }
       else

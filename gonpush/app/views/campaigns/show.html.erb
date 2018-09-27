@@ -19,61 +19,50 @@
     var seq=$("#btn_invite").attr("seq");
     var curStatus=$("#r_"+seq).attr("attrStatus");
      if(curStatus==0){//invite
-      $("#r_"+seq).attr("attrStatus","1");
-      $("#inviteStatus_"+seq).text("已邀请");
-      $("#btn_invite").text("取消邀请");
+     
       //generate order
-       alert($("#btn_invite").attr("attrCreatorId"));
-
-      
-
-         json={  
-                   marketer_id : $("#marketer_id").val(),
-                   creator_id :  $("#btn_invite").attr("attrCreatorId"), 
-                   campaign_id : $("#campaign_id").val()  
+       //alert($("#btn_invite").attr("attrCreatorId"));
+       var order_data={  
+                   'campaign_id':$("#campaign_id").val(),
+                   'marketer_id':$("#marketer_id").val(),
+                   'creator_id':$("#btn_invite").attr("attrCreatorId"), 
+                   'status':'0'  
          }  
-  
-         $.ajax({  
-             type: "POST",  
-             url: "generateOrder",  
-             data: json,  
-             dataType: "json",  
-             success: function(data, textStatus){  
-                     alert("hi");
-                      },  
-             error:function(data){  
-                     alert("请求后台数据出错")  
-                   }  
-         });       
-      
+    $.ajax({    
+      type: "POST",
+      url: "/orders",
+      data: order_data,
+      success: function(data){
+              $("#btn_invite").attr("orderId",data);
+              $('#btn_invite').text('取消邀请');
+              $("#r_"+seq).attr("attrStatus","1");
+              $("#inviteStatus_"+seq).text("已邀请");
+      },
+      error: function(){}
+    })
 
     }else{//cancel invite
-      $("#r_"+seq).attr("attrStatus","0");
-      $("#inviteStatus_"+seq).text("未邀请");
-      $("#btn_invite").text("邀请");
+      var order_id=$("#btn_invite").attr("orderId");
+      $.ajax({    
+      type: "delete",
+      url: '/orders/destroy/'+order_id,
+      success: function(){
+        $("#r_"+seq).attr("attrStatus","0");
+        $("#inviteStatus_"+seq).text("未邀请");
+        $("#btn_invite").text("邀请");
+      },
+      error: function(){}
+    })
+
+      
       //cancel order
-         $.ajax({
-               url:'/orders/1',
-               type:'POST',
-               dataType: 'json',
-               data:{
-                   marketer_id : $("#marketer_id").val(),
-                   creator_id :  $("#btn_invite").attr("attrCreatorId"), 
-                   campaign_id : $("#campaign_id").val()  
-               },
-               success:function (data) {
-                   var result = $.parseJSON( data );
-                   alert("取消成功");
-               },
-               error:function (data) {
-                alert("取消失败");
-               }
-           });
+
     }
 
   }
 </script>
-
+<input type="hidden" name="marketer_id" id="marketer_id" value="<%=@user.id%>"/>
+<input type="hidden" name="campaign_id" id="campaign_id" value="<%=@campaign.id%>"/>
 <div id="page-wrapper" class="gray-bg">
   <div class="wrapper wrapper-content  animated fadeInRight">
     <div class="row">
@@ -95,34 +84,6 @@
                   </button>
                 </span>
               </div>
-             
-              <table class="table">
-                <thead>
-                <tr>
-                  <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td><div><strong class="small">项目名称 / 关键信息</strong></div>
-                  <small><%= @campaign.name %> / <%= @campaign.description %></small></td>
-                </tr>
-                <tr>
-                  <td>
-                    <div><strong class="small">投放日期 / 预算</strong></div>
-                    <small><%= @campaign.start %> / <%= @campaign.budget %> </small>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <%= link_to '编辑', edit_campaign_path(@campaign) %> |
-                    <%= link_to '删除', campaigns_path %>    
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-
-              
               <div class="clients-list">
                 <div class="tab-pane active">
                   <div class="full-height-scroll">
@@ -139,13 +100,13 @@
                           </tr>
                           </thead>
                           <tbody>
-                          <% if @users.empty? -%>
+                        <% if @creators.empty? -%>
 
-                          <%else -%>
-                        <% @users.each_with_index do |user,i| %>
-                         <tr id="r_<%=i%>" attrStatus="0" onclick="checkCreator(<%=i%>,<%=user.id%>)">
+                        <%else -%>
+                        <% @creators.each_with_index do |creator,i| %>
+                         <tr id="r_<%=i%>" attrStatus="0" onclick="checkCreator(<%=i%>,<%=creator.id%>)">
                             <td class="client-avatar"><img alt="image" src="/assets/a1.jpg"> </td>
-                            <td><a data-toggle="tab" href="#contact-1" class="client-link" id="usrName_<%=i%>">  <%=user.username%></a></td>
+                            <td><a data-toggle="tab" href="#contact-1" class="client-link" id="usrName_<%=i%>">  <%=creator.username%></a></td>
                             <td> 190万</td>
                             <td> 280万</td>
                             <td> 200万</td>
@@ -175,20 +136,14 @@
                       </div>
                       <div class="col-lg-8">
                           <strong id="detailUsrName">
-                            <%= @users[0].username %> 
+                            <%= @creators[0].username %> 
                           </strong>
                           <p>
                             地产大号真叫卢俊创始人
                           </p>
-                          <%= form_for @order, remote: true do |f| %>
-                          <%= f.hidden_field :campaign_id,value:"1"%>
-                          <%= f.hidden_field :marketer_id,value:"1"%>
-                          <%= f.hidden_field :creator_id,value:"1"%>
-                          <%= f.hidden_field :budget,value:"1"%>
-                             <%= f.hidden_field :start_date,value:""%>
-                                <%= f.hidden_field :description,value:"test999"%>
-                          <%= f.submit '邀请',class:'btn btn-primary' %>
-                          <% end %>
+                         <button id="btn_invite" type="button" seq="0" attrCreatorId="" onclick="invite()" class="btn btn-default btn-sm btn-block">
+                                邀请
+                         </button>
                       </div>
                   </div>
                   <div class="client-detail">
@@ -225,115 +180,7 @@
                     </div>
                   </div>
               </div>
-
-              <div id="contact-2" class="tab-pane">
-                  <div class="row m-b-lg">
-                      <div class="col-lg-4 text-center">
-                        <div class="m-b-sm">
-                          <img alt="image" class="img-circle" src="img/a2.jpg" style="width: 62px">
-                        </div>
-                      </div>
-                      <div class="col-lg-8">
-                          <strong>
-                            真叫卢俊
-                          </strong>
-                          <p>
-                            地产大号真叫卢俊创始人
-                          </p>
-                          <button type="button" class="btn btn-primary btn-sm btn-block">
-                            邀请
-                          </button>
-                      </div>
-                  </div>
-                  <div class="client-detail">
-                    <div class="full-height-scroll">
-                        <strong>核心指标</strong>
-                        <ul class="list-group clear-list">
-                          <li class="list-group-item fist-item">
-                            <span class="pull-right">190万 </span>
-                            粉丝数
-                          </li>
-                          <li class="list-group-item">
-                            <span class="pull-right">280万 </span>
-                            阅读量
-                          </li>
-                          <li class="list-group-item">
-                            <span class="pull-right">60万 </span>
-                            点赞数
-                          </li>
-                        </ul>
-                        <strong>报价方案</strong>
-                        <hr />
-                        <h5>#1：入门套餐</h5>
-                        <span class="text-navy small">60万元</span>
-                        <p>修改次数限3次</p>
-                        <hr/>
-                        <h5>#2：标准套餐</h5>
-                        <span class="text-navy small">60万元</span>
-                        <p>修改次数限3次</p>
-                        <hr/>
-                        <h5>#3：专业套餐</h5>
-                        <span class="text-navy small">60万元</span>
-                        <p>修改次数限3次</p>
-                        <hr/>
-                    </div>
-                  </div>
-              </div>
-
-              <div id="contact-3" class="tab-pane">
-                  <div class="row m-b-lg">
-                      <div class="col-lg-4 text-center">
-                        <div class="m-b-sm">
-                          <img alt="image" class="img-circle" src="img/a3.jpg" style="width: 62px">
-                        </div>
-                      </div>
-                      <div class="col-lg-8">
-                          <strong>
-                            真叫卢俊
-                          </strong>
-                          <p>
-                            地产大号真叫卢俊创始人
-                          </p>
-                          <button type="button" class="btn btn-primary btn-sm btn-block">
-                            邀请
-                          </button>
-                      </div>
-                  </div>
-                  <div class="client-detail">
-                    <div class="full-height-scroll">
-                        <strong>核心指标</strong>
-                        <ul class="list-group clear-list">
-                          <li class="list-group-item fist-item">
-                            <span class="pull-right">190万 </span>
-                            粉丝数
-                          </li>
-                          <li class="list-group-item">
-                            <span class="pull-right">280万 </span>
-                            阅读量
-                          </li>
-                          <li class="list-group-item">
-                            <span class="pull-right">60万 </span>
-                            点赞数
-                          </li>
-                        </ul>
-                        <strong>报价方案</strong>
-                        <hr />
-                        <h5>#1：入门套餐</h5>
-                        <span class="text-navy small">60万元</span>
-                        <p>修改次数限3次</p>
-                        <hr/>
-                        <h5>#2：标准套餐</h5>
-                        <span class="text-navy small">60万元</span>
-                        <p>修改次数限3次</p>
-                        <hr/>
-                        <h5>#3：专业套餐</h5>
-                        <span class="text-navy small">60万元</span>
-                        <p>修改次数限3次</p>
-                        <hr/>
-                    </div>
-                  </div>
-              </div>
-            </div>
+  
           </div>
         </div>
       </div>
