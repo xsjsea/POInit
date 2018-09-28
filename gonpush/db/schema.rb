@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_27_024823) do
+ActiveRecord::Schema.define(version: 2018_09_28_073720) do
 
   create_table "areas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "areaName"
@@ -29,6 +29,18 @@ ActiveRecord::Schema.define(version: 2018_09_27_024823) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+  end
+
+  create_table "cases", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "case_author"
+    t.string "case_date"
+    t.string "case_title"
+    t.string "case_content"
+    t.string "case_status"
+    t.datetime "case_modified"
+    t.string "case_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -72,6 +84,8 @@ ActiveRecord::Schema.define(version: 2018_09_27_024823) do
     t.integer "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "inviterequired"
+    t.string "productselected"
   end
 
   create_table "creator_metrics", options: "ENGINE=MyISAM DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -95,6 +109,9 @@ ActiveRecord::Schema.define(version: 2018_09_27_024823) do
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "order_id"
+    t.integer "step_order"
+    t.integer "user_id"
   end
 
   create_table "metrics", options: "ENGINE=MyISAM DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -128,6 +145,20 @@ ActiveRecord::Schema.define(version: 2018_09_27_024823) do
     t.integer "schedule_id"
   end
 
+  create_table "reports", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "report_author"
+    t.string "report_date"
+    t.string "report_title"
+    t.string "report_content"
+    t.string "report_status"
+    t.datetime "post_modified"
+    t.string "report_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "report_source"
+    t.string "report_link"
+  end
+
   create_table "schedules", options: "ENGINE=MyISAM DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "campaign_id"
     t.integer "flow_name"
@@ -143,16 +174,31 @@ ActiveRecord::Schema.define(version: 2018_09_27_024823) do
     t.integer "order_id"
   end
 
-  create_table "social_accounts", options: "ENGINE=MyISAM DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "services", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "service_name"
+    t.string "service_description"
+    t.float "service_price"
     t.integer "creator_id"
-    t.string "phone"
-    t.string "mobile"
-    t.string "qq"
-    t.string "wechat"
-    t.string "email"
-    t.string "skype"
-    t.string "google"
-    t.string "yahoo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "social_accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "creator_id"
+    t.integer "channel_id"
+    t.string "channel_name"
+    t.string "channel_value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "fans"
+    t.integer "readers"
+    t.integer "comments"
+    t.integer "praises"
+    t.string "nickname"
+  end
+
+  create_table "social_channels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -190,6 +236,7 @@ ActiveRecord::Schema.define(version: 2018_09_27_024823) do
     t.datetime "updated_at", null: false
     t.string "mobile"
     t.string "description"
+    t.string "sex"
   end
 
 end

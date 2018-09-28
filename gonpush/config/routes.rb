@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
  
+  resources :socail_accounts
+  resources :social_channels
+  resources :cases
+  resources :reports
   get 'sessions/new'
   resources :tasks
   resources :orders
@@ -27,7 +31,15 @@ Rails.application.routes.draw do
   get '/getOrder', to: 'orders#showOrder'
   post '/updateSchedule', to: 'orders#updateSchedule'
   delete "orders/destroy/:id" => "orders#destroy"
+  delete "reports/destroy/:id" => "reports#destroy"
+  delete "cases/destroy/:id" => "cases#destroy"
+  delete "services/destroy/:id" => "services#destroy"
   post  '/getservice',to:'sessions#getservices'
- 
+  get '/inviterequired', to: 'users#inviterequired'
+  post '/saveinviterequired' , to:'users#saveinviterequired'
+  get '/updatepassword', to: 'users#updatepassword'
+  post '/savepassword' , to:'users#savepassword'
+  get '/userinfo', to: 'users#userinfo'
+  post '/saveuserinfo' , to:'users#saveuserinfo'
 
 end

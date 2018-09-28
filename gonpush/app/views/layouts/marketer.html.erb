@@ -11,8 +11,7 @@
 </head>
 
 <body>
-
-  <input type="hidden" id="userId" value="<%=@user.id%>"/>
+<%current_user%>
   <div id="wrapper">
     <nav class="navbar-default navbar-static-side" role="navigation">
       <div class="sidebar-collapse">
@@ -23,7 +22,7 @@
                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                   <span class="clear">
                     <span class="block m-t-xs">
-                      <strong class="font-bold"><%=@user.username%></strong>
+                      <strong class="font-bold"><%=@current_user.username%></strong>
                     </span>
                     <span class="text-muted text-xs block">
                       需求方<b class="caret"></b>
@@ -74,8 +73,8 @@
               <span class="fa arrow"></span>
             </a>
             <ul class="nav nav-second-level">
-              <li><a href="users/1/edit">修改密码</a></li>
-              <li><a href="users/1">基础信息</a></li>
+              <li><a href="/updatepassword">修改密码</a></li>
+              <li><a href="/userinfo">基础信息</a></li>
             </ul>
           </li>
         </ul>

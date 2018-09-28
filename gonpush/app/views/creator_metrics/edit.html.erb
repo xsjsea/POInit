@@ -1,6 +1,17 @@
-<h1>Editing Creator Metric</h1>
 
-<%= render 'form', creator_metric: @creator_metric %>
+     <div id="page-wrapper" class="gray-bg">
+      <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox-title">
+          <h5>新增指标</h5>
+        </div>
 
-<%= link_to 'Show', @creator_metric %> |
-<%= link_to 'Back', creator_metrics_path %>
+        <div class="ibox-content">
+            <%= render 'form', creator_metric: @creator_metric %>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="pull-right">
+          <strong>GonPush.com</strong> &copy; 2018
+        </div>
+      </div>
+    </div>

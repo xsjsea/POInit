@@ -13,6 +13,7 @@ class CampaignsController < ApplicationController
   # GET /campaigns/1
   # GET /campaigns/1.json
   def show
+  
   searchword=params[:searchword]
   if searchword==nil
   @creators=User.select("users.id,users.username,users.description,creator_exts.avatar,view_metric.fans, view_metric.reader,view_metric.price")
@@ -30,14 +31,17 @@ class CampaignsController < ApplicationController
   #@services=Services.all
   @user=User.find_by_id(session[:user_id])
   @order=Order.new
-  end
+ 
+end
 
  
   # GET /campaigns/new
   def new
+ 
     @campaign = Campaign.new
     @user_id = session[:user_id]
     @user=User.find_by_id(@user_id)
+  
   end
 
   # GET /campaigns/1/edit
@@ -87,6 +91,7 @@ class CampaignsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_campaign
+      logged_in_user 
       @campaign = Campaign.find(params[:id])
     end
 

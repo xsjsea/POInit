@@ -1,4 +1,4 @@
- <div id="page-wrapper" class="gray-bg">
+ 
       <div class="wrapper wrapper-content animated fadeInRight">
         <div class="ibox-title">
           <h5>评价列表</h5>
@@ -18,42 +18,19 @@
               </tr>
               </thead>
               <tbody>
+
+               <% @comments.each_with_index do |comment,i| %>
               <tr>
                 <td>1</td>
-                <td><a href="javascript:;">百雀羚母亲节营销活动</a></td>
-                <td>非常满意，期待下次合作</td>
-                <td>大象传媒</td>
-                <td>2018-08-01 10:00:00</td>
+                <td><a href="javascript:void();"><%=comment.name%></a></td>
+                <td><%=comment.comment_content%></td>
+                <td><%=comment.username%></td>
+                <td><%=comment.created_at.strftime('%Y-%m-%d')%></td>
               </tr>
-              <tr>
-                <td>2</td>
-                <td><a href="javascript:;">百雀羚母亲节营销活动</a></td>
-                <td>非常满意，期待下次合作</td>
-                <td>大象传媒</td>
-                <td>2018-08-01 10:00:00</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td><a href="javascript:;">百雀羚母亲节营销活动</a></td>
-                <td>非常满意，期待下次合作</td>
-                <td>大象传媒</td>
-                <td>2018-08-01 10:00:00</td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td><a href="javascript:;">百雀羚母亲节营销活动</a></td>
-                <td>非常满意，期待下次合作</td>
-                <td>大象传媒</td>
-                <td>2018-08-01 10:00:00</td>
-              </tr>
+              <%end%>
               </tbody>
             </table>
           </div>
         </div>
-      </div>
-      <div class="footer">
-        <div class="pull-right">
-          <strong>GonPush.com</strong> &copy; 2018
-        </div>
-      </div>
-    </div>
+  </div>
+      

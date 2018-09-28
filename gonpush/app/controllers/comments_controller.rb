@@ -2,20 +2,22 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
   layout :products_layout
 
-  private  
-  def products_layout 
-    @user=User.find_by_id(session[:user_id]) 
-    if @user.usertype=="0"
-       return 'creator'
-    else
-      return 'marketer'
-    end
-   
- end  
+  
   # GET /comments
   # GET /comments.json
   def index
-    @comments = Comment.all
+  #  @comments = Comment.all
+  current_user
+  if @current_user.usertype=="1"
+  @comments=Comment.select("campaigns.name, comments.comment_content,users.username,comments.created_at
+ ").joins("left join users on comments.user_id=users.id left join campaigns 
+ on comments.campaign_id=campaigns.id where campaigns.user_id=#{@current_user.id}")
+  else
+  @comments=Comment.select("campaigns.name, comments.comment_content,users.username,comments.created_at
+ ").joins("left join users on comments.user_id=users.id left join campaigns 
+ on comments.campaign_id=campaigns.id left JOIN orders 
+ on comments.order_id=orders.id where comments.order_id is not NULL and orders.creator_id=#{@current_user.id}")
+  end
   end
 
   # GET /comments/1
@@ -75,6 +77,7 @@ class CommentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_comment
+      logged_in_user
       @comment = Comment.find(params[:id])
     end
 
@@ -82,4 +85,13 @@ class CommentsController < ApplicationController
     def comment_params
       params.require(:comment).permit(:post_id, :comment_content, :user_id)
     end
+  def products_layout 
+    @user=User.find_by_id(session[:user_id]) 
+    if @user.usertype=="0"
+       return 'creator'
+    else
+      return 'marketer'
+    end
+   
+ end  
 end

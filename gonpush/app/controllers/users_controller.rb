@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   layout :products_layout
 
@@ -24,10 +23,7 @@ class UsersController < ApplicationController
   def edit
 
   end
- # GET /users/login
-  def login
-    @users=User.new 
-  end
+ 
 
   # POST /users
   # POST /users.json
@@ -74,10 +70,39 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+   def inviterequired
+    current_user
 
+   end
+   def saveinviterequired
+    current_user
+    inviterequired =params[:inviterequired]
+    productselected =params[:productselected]
+    CreatorExt.where(userid: session[:user_id]).update_all(inviterequired: inviterequired,productselected:productselected)
+   end
+   def updatepassword
+    current_user
+    
+   end
+  def savepassword
+    current_user
+    password =params[:password]
+    User.where(id:@current_user.id).update_all(password:password)
+   end
+    def userinfo
+    current_user
+    user_id=@current_user.id
+    User.select("creator_exts.avatar,creator_exts.category_id,users.sex,users.username,users.description,users.user_comment,creator_exts.tags_set").joins("left join creator_exts on users.id= creator_exts.userid where users.id=#{user_id}")
+
+   end
+  def saveuserinfo
+    current_user
+
+   end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
+      logged_in_user
       @user = User.find(params[:id])
     end
 

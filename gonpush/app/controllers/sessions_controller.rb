@@ -11,10 +11,11 @@ class SessionsController < ApplicationController
   	#f user && user.authenticate(params[:session] [:password])
   	flash.now[:notice] ='手机号或密码不正确!'
   	render 'new'
-  else
-         #log_in(user)
-         #
-         session[:user_id] =  user.id
+    else
+         log_in user
+       
+         #session[:user_id] =  user.id
+         current_user
           if(user.usertype=="0")
            redirect_to  orders_path
           else
@@ -28,10 +29,17 @@ class SessionsController < ApplicationController
          @current_user=nil
          redirect_to  login_path
   end
+
+  # GET /users/login
+  def login
+    @users=User.new 
+  end
    def getservices
    creator_id=params[:creator_id]
    @services=Service.select("services.creator_id,services.service_name,services.service_description,services.service_price").joins("where services.creator_id=#{creator_id}")
    #render 'creatorservices'
    render :json => @services.to_json  
   end
+
+  
 end

@@ -14,15 +14,10 @@ class SocialAccountsTest < ApplicationSystemTestCase
     visit social_accounts_url
     click_on "New Social Account"
 
+    fill_in "Channel", with: @social_account.channel_id
+    fill_in "Channel Name", with: @social_account.channel_name
+    fill_in "Channel Value", with: @social_account.channel_value
     fill_in "Creator", with: @social_account.creator_id
-    fill_in "Email", with: @social_account.email
-    fill_in "Google", with: @social_account.google
-    fill_in "Mobile", with: @social_account.mobile
-    fill_in "Phone", with: @social_account.phone
-    fill_in "Qq", with: @social_account.qq
-    fill_in "Skype", with: @social_account.skype
-    fill_in "Wechat", with: @social_account.wechat
-    fill_in "Yahoo", with: @social_account.yahoo
     click_on "Create Social account"
 
     assert_text "Social account was successfully created"
@@ -33,15 +28,10 @@ class SocialAccountsTest < ApplicationSystemTestCase
     visit social_accounts_url
     click_on "Edit", match: :first
 
+    fill_in "Channel", with: @social_account.channel_id
+    fill_in "Channel Name", with: @social_account.channel_name
+    fill_in "Channel Value", with: @social_account.channel_value
     fill_in "Creator", with: @social_account.creator_id
-    fill_in "Email", with: @social_account.email
-    fill_in "Google", with: @social_account.google
-    fill_in "Mobile", with: @social_account.mobile
-    fill_in "Phone", with: @social_account.phone
-    fill_in "Qq", with: @social_account.qq
-    fill_in "Skype", with: @social_account.skype
-    fill_in "Wechat", with: @social_account.wechat
-    fill_in "Yahoo", with: @social_account.yahoo
     click_on "Update Social account"
 
     assert_text "Social account was successfully updated"

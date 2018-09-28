@@ -2,22 +2,12 @@
 
 one:
   creator_id: 1
-  phone: MyString
-  mobile: MyString
-  qq: MyString
-  wechat: MyString
-  email: MyString
-  skype: MyString
-  google: MyString
-  yahoo: MyString
+  channel_id: 1
+  channel_name: MyString
+  channel_value: MyString
 
 two:
   creator_id: 1
-  phone: MyString
-  mobile: MyString
-  qq: MyString
-  wechat: MyString
-  email: MyString
-  skype: MyString
-  google: MyString
-  yahoo: MyString
+  channel_id: 1
+  channel_name: MyString
+  channel_value: MyString

@@ -1,13 +1,14 @@
 class SocialAccountsController < ApplicationController
   before_action :set_social_account, only: [:show, :edit, :update, :destroy]
-layout :products_layout
 
- 
-  
   # GET /social_accounts
   # GET /social_accounts.json
   def index
-    @social_accounts = SocialAccount.all
+     #@social_accounts = SocialAccount.all
+     user_id=session[user_id]
+     @social_accounts = Social_accounts.select("social_accounts.fans,social_accounts.readers,social_accounts.praises,social_accounts.comments,social_accounts.channel_name,
+social_accounts.channel_id,social_accounts.nickname,social_accounts.id,social_accounts.creator_id").joins("where social_accounts.creator_id=#{user_id}")
+      );
   end
 
   # GET /social_accounts/1
@@ -72,15 +73,6 @@ layout :products_layout
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def social_account_params
-      params.require(:social_account).permit(:creator_id, :phone, :mobile, :qq, :wechat, :email, :skype, :google, :yahoo)
+      params.require(:social_account).permit(:creator_id, :channel_id, :channel_name, :channel_value)
     end
-    def products_layout 
-    @user=User.find_by_id(session[:user_id]) 
-    if @user.usertype=="0"
-       return 'creator'
-    else
-      return 'marketer'
-    end
-   
- end  
 end

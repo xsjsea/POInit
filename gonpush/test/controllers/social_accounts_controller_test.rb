@@ -17,7 +17,7 @@ class SocialAccountsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create social_account" do
     assert_difference('SocialAccount.count') do
-      post social_accounts_url, params: { social_account: { creator_id: @social_account.creator_id, email: @social_account.email, google: @social_account.google, mobile: @social_account.mobile, phone: @social_account.phone, qq: @social_account.qq, skype: @social_account.skype, wechat: @social_account.wechat, yahoo: @social_account.yahoo } }
+      post social_accounts_url, params: { social_account: { channel_id: @social_account.channel_id, channel_name: @social_account.channel_name, channel_value: @social_account.channel_value, creator_id: @social_account.creator_id } }
     end
 
     assert_redirected_to social_account_url(SocialAccount.last)
@@ -34,7 +34,7 @@ class SocialAccountsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update social_account" do
-    patch social_account_url(@social_account), params: { social_account: { creator_id: @social_account.creator_id, email: @social_account.email, google: @social_account.google, mobile: @social_account.mobile, phone: @social_account.phone, qq: @social_account.qq, skype: @social_account.skype, wechat: @social_account.wechat, yahoo: @social_account.yahoo } }
+    patch social_account_url(@social_account), params: { social_account: { channel_id: @social_account.channel_id, channel_name: @social_account.channel_name, channel_value: @social_account.channel_value, creator_id: @social_account.creator_id } }
     assert_redirected_to social_account_url(@social_account)
   end
 

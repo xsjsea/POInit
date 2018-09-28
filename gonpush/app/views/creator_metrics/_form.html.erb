@@ -1,37 +1,19 @@
-<%= form_with(model: creator_metric, local: true) do |form| %>
-  <% if creator_metric.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(creator_metric.errors.count, "error") %> prohibited this creator_metric from being saved:</h2>
+<form method="get" class="form-horizontal">
+                <div class="form-group"><label class="col-sm-2 control-label">指标 </label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control">
+                  </div>
+                </div>
+                <div class="hr-line-dashed"></div>
 
-      <ul>
-      <% creator_metric.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+                <div class="form-group"><label class="col-sm-2 control-label">数据 </label>
+                  <div class="col-sm-10"><input type="text" class="form-control"></div>
+                </div>
+                <div class="hr-line-dashed"></div>
 
-  <div class="field">
-    <%= form.label :creator_id %>
-    <%= form.number_field :creator_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :metric_id %>
-    <%= form.text_field :metric_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :metric_name %>
-    <%= form.text_field :metric_name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :metric_value %>
-    <%= form.text_field :metric_value %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+                <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-2">
+                      <button class="btn btn-primary" type="button">保存</button>
+                    </div>
+                </div>
+            </form>
